@@ -85,15 +85,27 @@ function displayNotifications() {
   userNotif.append(nameNotificationsDate);
 
   userNotif.append(createSVG(userNotif));
+
   notificationsWrapper.append(userNotif);
 
   count++;
   setCounterToDom();
+  clearInputFields();
 }
 /*
  * Displaying the Name and Comment that has been submited
  * [END]
  */
+
+function clearInputFields() {
+  const nameInput = document.getElementsByClassName("username")[0];
+  const commentInput = document.getElementsByClassName("comment")[0];
+
+  if (nameInput && commentInput) {
+    nameInput.value = "";
+    commentInput.value = "";
+  }
+}
 
 function createSVG(userNotif) {
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -104,7 +116,7 @@ function createSVG(userNotif) {
 
   svg.addEventListener("click", function () {
     if (userNotif) {
-      userNotif.remove(userNotif);
+      userNotif.remove();
       count--;
       setCounterToDom();
     }

@@ -1,0 +1,117 @@
+        <!-- <div class="user-notif">
+          <img
+            class="profile-pic"
+            alt="Mark"
+            src="assets/images/avatar-mark-webber.webp"
+          />
+          <div class="name-notification-date">
+            <p class="text">
+              <span class="user-name">Mark Webber</span> reacted to your recent
+              post <span class="post">My first tournament today!</span
+              ><span class="dot"></span>
+            </p>
+            <p class="time">1m ago</p>
+          </div>
+        </div>
+
+        <div class="user-notif">
+          <img
+            class="profile-pic"
+            alt="Angela"
+            src="assets/images/avatar-angela-gray.webp"
+          />
+          <div class="name-notification-date">
+            <p class="text">
+              <span class="user-name">Angela Gray</span> followed you<span
+                class="dot"
+              ></span>
+            </p>
+            <p class="time">5m ago</p>
+          </div>
+        </div>
+
+        <div class="user-notif">
+          <img
+            class="profile-pic"
+            alt="Jacob"
+            src="assets/images/avatar-jacob-thompson.webp"
+          />
+          <div class="name-notification-date">
+            <p class="text">
+              <span class="user-name">Jacob Thompson </span>has joined your
+              group <span class="club">Chess Club</span
+              ><span class="dot"></span>
+            </p>
+            <p class="time">1 day ago</p>
+          </div>
+        </div>
+
+        <div class="user-notif">
+          <img
+            class="profile-pic"
+            alt="Rizky"
+            src="assets/images/avatar-rizky-hasanuddin.webp"
+          />
+          <div class="name-notification-date">
+            <p class="text">
+              <span class="user-name">Rizsky Hasanuddin</span> sent you a
+              private message<span class="dot"></span>
+            </p>
+            <p class="time">5 days ago</p>
+          </div>
+          <p class="private-message">
+            Hello, thanks for setting up the Chess Club. I've been a member for
+            a few weeks now and I'm already having lots of fun and improving my
+            game.
+          </p>
+        </div>
+
+        <div class="user-notif">
+          <img
+            class="profile-pic"
+            alt="Kimberly"
+            src="assets/images/avatar-kimberly-smith.webp"
+          />
+          <div class="name-notification-date">
+            <p class="text">
+              <span class="user-name"> Kimberly Smith</span> commented on your
+              picture<span class="dot"></span>
+            </p>
+            <img class="comm-pic" src="assets/images/image-chess.webp" />
+            <p class="time">1 week ago</p>
+          </div>
+        </div>
+
+        <div class="user-notif">
+          <img
+            class="profile-pic"
+            alt="Nathan"
+            src="assets/images/avatar-nathan-peterson.webp"
+          />
+          <div class="name-notification-date">
+            <p class="text">
+              <span class="user-name"> Nathan Peterson</span> reacted to your
+              recent post
+              <span class="post"
+                >5 end-game strategies to increase your win rate</span
+              >
+              <span class="dot"></span>
+            </p>
+            <p class="time">2 weeks ago</p>
+          </div>
+        </div>
+
+        <div class="user-notif">
+          <img
+            class="profile-pic"
+            alt="Anna"
+            src="assets/images/avatar-anna-kim.webp"
+          />
+          <div class="name-notification-date">
+            <p class="text">
+              <span class="user-name">Anna Kim</span> left the group
+              <span class="club">Chess Club</span><span class="dot"></span>
+            </p>
+            <p class="time">2 weeks ago</p>
+          </div>
+        </div> -->
