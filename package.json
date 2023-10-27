@@ -1,0 +1,17 @@
+{
+  "name": "notifications-app",
+  "version": "1.0.0",
+  "description": "A simple notification app",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/irenepampu/notifications-app.git"
+  },
+  "author": "Irene Pampu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/irenepampu/notifications-app/issues"
+  },
+  "homepage": "https://github.com/irenepampu/notifications-app#readme"
+}
