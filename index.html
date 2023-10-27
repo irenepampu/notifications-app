@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notification app</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;800&display=swap"
+      rel="stylesheet"
+    />
+    <script defer src="index.js"></script>
+  </head>
+
+  <body>
+    <div class="top-container container">
+      <p class="input user-name">Insert your user-name:</p>
+      <input
+        class="input-notif-text username"
+        type="text"
+        name="input-name"
+        placeholder="Enter your name..."
+        required
+      />
+      <p class="input user-name">Leave a comment or a notification:</p>
+      <input
+        class="input-notif-text comment"
+        type="text"
+        name="input-notif"
+        placeholder="Insert a comment or a notification..."
+        required
+      />
+      <button
+        onclick="displayNotifications()"
+        class="submit-button"
+        type="button"
+      >
+        Submit!
+      </button>
+    </div>
+
+    <div class="bottom-container container">
+      <header>
+        <div class="header">
+          <div class="title-notification">
+            <h1>Notifications <span class="submit-count">3</span></h1>
+            <p class="marked">Mark all as read</p>
+          </div>
+        </div>
+      </header>
+
+      <section id="notifications">
+        <!-- <div class="user-notif">
+          <img
+            class="profile-pic"
+            alt="Mark"
+            src="assets/images/avatar-mark-webber.webp"
+          />
+          <div class="name-notification-date">
+            <p class="text">
+              <span class="user-name">Mark Webber</span> reacted to your recent
+              post <span class="post">My first tournament today!</span
+              ><span class="dot"></span>
+            </p>
+            <p class="time">1m ago</p>
+          </div>
+        </div>
+
+        <div class="user-notif">
+          <img
+            class="profile-pic"
+            alt="Angela"
+            src="assets/images/avatar-angela-gray.webp"
+          />
+          <div class="name-notification-date">
+            <p class="text">
+              <span class="user-name">Angela Gray</span> followed you<span
+                class="dot"
+              ></span>
+            </p>
+            <p class="time">5m ago</p>
+          </div>
+        </div>
+
+        <div class="user-notif">
+          <img
+            class="profile-pic"
+            alt="Jacob"
+            src="assets/images/avatar-jacob-thompson.webp"
+          />
+          <div class="name-notification-date">
+            <p class="text">
+              <span class="user-name">Jacob Thompson </span>has joined your
+              group <span class="club">Chess Club</span
+              ><span class="dot"></span>
+            </p>
+            <p class="time">1 day ago</p>
+          </div>
+        </div>
+
+        <div class="user-notif">
+          <img
+            class="profile-pic"
+            alt="Rizky"
+            src="assets/images/avatar-rizky-hasanuddin.webp"
+          />
+          <div class="name-notification-date">
+            <p class="text">
+              <span class="user-name">Rizsky Hasanuddin</span> sent you a
+              private message<span class="dot"></span>
+            </p>
+            <p class="time">5 days ago</p>
+          </div>
+          <p class="private-message">
+            Hello, thanks for setting up the Chess Club. I've been a member for
+            a few weeks now and I'm already having lots of fun and improving my
+            game.
+          </p>
+        </div>
+
+        <div class="user-notif">
+          <img
+            class="profile-pic"
+            alt="Kimberly"
+            src="assets/images/avatar-kimberly-smith.webp"
+          />
+          <div class="name-notification-date">
+            <p class="text">
+              <span class="user-name"> Kimberly Smith</span> commented on your
+              picture<span class="dot"></span>
+            </p>
+            <img class="comm-pic" src="assets/images/image-chess.webp" />
+            <p class="time">1 week ago</p>
+          </div>
+        </div>
+
+        <div class="user-notif">
+          <img
+            class="profile-pic"
+            alt="Nathan"
+            src="assets/images/avatar-nathan-peterson.webp"
+          />
+          <div class="name-notification-date">
+            <p class="text">
+              <span class="user-name"> Nathan Peterson</span> reacted to your
+              recent post
+              <span class="post"
+                >5 end-game strategies to increase your win rate</span
+              >
+              <span class="dot"></span>
+            </p>
+            <p class="time">2 weeks ago</p>
+          </div>
+        </div>
+
+        <div class="user-notif">
+          <img
+            class="profile-pic"
+            alt="Anna"
+            src="assets/images/avatar-anna-kim.webp"
+          />
+          <div class="name-notification-date">
+            <p class="text">
+              <span class="user-name">Anna Kim</span> left the group
+              <span class="club">Chess Club</span><span class="dot"></span>
+            </p>
+            <p class="time">2 weeks ago</p>
+          </div>
+        </div> -->
+      </section>
+    </div>
+  </body>
+</html>
