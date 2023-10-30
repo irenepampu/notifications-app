@@ -27,11 +27,6 @@ html {
   font-family: var(--font);
 }
 
-/* .top-container {
-}
-.bottom-container {
-} */
-
 .input {
   font-size: 1.5rem;
   padding: 1rem;
@@ -46,6 +41,24 @@ html {
   margin-left: 0.9rem;
 }
 
+.picture-upload {
+  font-family: var(--font);
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--Very_dark_blue);
+  padding: 1rem;
+}
+
+#profile {
+  font-family: var(--font);
+  font-size: 1rem;
+  color: var(--Very_dark_blue);
+}
+
+.profile-pic {
+  border-radius: 50%;
+}
+
 .submit-button {
   padding: 1rem;
   display: block;
@@ -55,8 +68,7 @@ html {
   color: var(--Very_dark_blue);
   background-color: var(--Light_grayish_blue_2);
   border-radius: 0.5rem;
-  margin-top: 2rem;
-  margin-left: 0.9rem;
+  margin: 1rem;
 }
 
 .submit-button:hover {
@@ -168,33 +180,24 @@ p {
   font-weight: 500;
 }
 
+.dot {
+  height: 25px;
+  width: 25px;
+  color: var(--Red);
+  border-radius: 50%;
+  display: inline-block;
+}
+
 .marked {
   color: var(--Dark_grayish_blue);
   font-weight: 500;
   font-size: 1.15rem;
 }
+.marked:hover {
+  cursor: pointer;
+  color: var(--Very_dark_blue);
+}
 
 svg:hover {
   cursor: pointer;
-}
-
-.popup {
-  visibility: hidden;
-  width: 160px;
-  background-color: var(--Dark_grayish_blue);
-  color: var(--White);
-  text-align: center;
-  border-radius: 6px;
-  padding: 8px 0;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -80px;
-}
-
-.popup .show {
-  visibility: visible;
-  -webkit-animation: fadeIn 1s;
-  animation: fadeIn 1s;
 }

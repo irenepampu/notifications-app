@@ -16,30 +16,42 @@
 
   <body>
     <div class="top-container container">
-      <p class="input user-name">Insert your user-name:</p>
+      <p class="input user-name">Insert your username: *</p>
       <input
-        class="input-notif-text username"
+        class="input-notif-text username inputValue"
         type="text"
         name="input-name"
         placeholder="Enter your name..."
         required
       />
-      <p class="input user-name">Leave a comment or a notification:</p>
+      <p class="input user-name">Leave a comment or a notification: *</p>
       <input
-        class="input-notif-text comment"
+        class="input-notif-text comment inputValue"
         type="text"
         name="input-notif"
         placeholder="Insert a comment or a notification..."
         required
       />
+      <div class="picture-upload">
+        <label for="file" >Choose a profile picture to upload *</label>
+        <input
+          type="file"
+          id="profile"
+          class="inputValue"
+          name="profile-picture"
+          accept="image/png, image/jpeg"
+          alt="profile-picture"
+          aria-required="true"
+        />
+      </div>
       <button
         onclick="displayNotifications()"
         class="submit-button"
         type="button"
+        id="submit"
       >
         Submit!
       </button>
-    </div>
 
     <div class="bottom-container container">
       <header>

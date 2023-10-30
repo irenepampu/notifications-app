@@ -10,7 +10,27 @@ function setCounterToDom() {
     domCounter[0].textContent = count;
   }
 }
+
+function checkLocalStorage() {
+  let userName = localStorage.getItem("userName");
+  let userComment = localStorage.getItem("userComment");
+  let userPhoto = localStorage.getItem("userPhoto");
+
+  if (!userName || !userComment || !userPhoto) {
+    localStorage.clear();
+    return;
+  }
+
+  displayNotifications(true, {
+    userName: userName,
+    userComment: userComment,
+    userPhoto: userPhoto,
+  });
+}
+
+checkLocalStorage();
 setCounterToDom();
+
 /*
  * counting the submits
  * [END]
@@ -21,13 +41,30 @@ setCounterToDom();
  * [BEGIN]
  */
 
-function displayNotifications() {
-  //set the inputs by class
-  const nameInputValue = document.getElementsByClassName("username")[0].value;
-  const commentInputValue = document.getElementsByClassName("comment")[0].value;
+function displayNotifications(fromLocalStorage = false, options = undefined) {
+  let nameInputValue, commentInputValue, profilePictureInput;
 
-  if (nameInputValue === "" || commentInputValue === "") {
-    return;
+  if (fromLocalStorage === true) {
+    nameInputValue = options.userName;
+    commentInputValue = options.userComment;
+    profilePictureInput = options.userPhoto;
+  } else {
+    nameInputValue = document.getElementsByClassName("username")[0].value;
+    commentInputValue = document.getElementsByClassName("comment")[0].value;
+    profilePictureInput = document.getElementById("profile");
+  }
+
+  //set the inputs by class
+
+  if (!fromLocalStorage) {
+    if (
+      nameInputValue === "" ||
+      commentInputValue === "" ||
+      !profilePictureInput.files[0]
+    ) {
+      alert("All fields must be completed!");
+      return;
+    }
   }
 
   /*
@@ -78,32 +115,56 @@ function displayNotifications() {
   nameNotificationsDate.append(text);
   nameNotificationsDate.append(time);
 
-  profilePicImg.alt = nameInputValue.split(" ")[0];
-  profilePicImg.src = "assets/images/avatar-mark-webber.webp";
+  uploadProfilePic(profilePictureInput, profilePicImg, fromLocalStorage);
 
   userNotif.append(profilePicImg);
   userNotif.append(nameNotificationsDate);
-
   userNotif.append(createSVG(userNotif));
 
   notificationsWrapper.append(userNotif);
 
   count++;
   setCounterToDom();
+
+  saveToLocalStorage(nameInputValue, commentInputValue);
   clearInputFields();
+
+  /*
+   * Displaying the Name and Comment that has been submited
+   * [END]
+   */
 }
-/*
- * Displaying the Name and Comment that has been submited
- * [END]
- */
+
+function uploadProfilePic(
+  profilePictureInput,
+  profilePicImg,
+  fromLocalStorage
+) {
+  if (fromLocalStorage) {
+    profilePicImg.src = profilePictureInput;
+    return;
+  }
+  const selectedFile = profilePictureInput.files[0];
+  if (selectedFile) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      profilePicImg.src = e.target.result;
+
+      localStorage.setItem("userPhoto", profilePicImg.src);
+    };
+    reader.readAsDataURL(selectedFile);
+  }
+}
 
 function clearInputFields() {
   const nameInput = document.getElementsByClassName("username")[0];
   const commentInput = document.getElementsByClassName("comment")[0];
+  const pictureInput = document.getElementById("profile");
 
-  if (nameInput && commentInput) {
+  if (nameInput && commentInput && pictureInput) {
     nameInput.value = "";
     commentInput.value = "";
+    pictureInput.value = "";
   }
 }
 
@@ -116,7 +177,7 @@ function createSVG(userNotif) {
 
   svg.addEventListener("click", function () {
     if (userNotif) {
-      userNotif.remove();
+      userNotif.remove(userNotif);
       count--;
       setCounterToDom();
     }
@@ -132,4 +193,9 @@ function createSVG(userNotif) {
   svg.appendChild(path);
 
   return svg;
+}
+
+function saveToLocalStorage(username, comment) {
+  localStorage.setItem("userName", username);
+  localStorage.setItem("userComment", comment);
 }
