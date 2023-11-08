@@ -1,3 +1,6 @@
+const BG_INITIAL = "hsl(211, 68%, 94%)";
+const BG_AFTER_READING = "#F0F8FF";
+
 /*
  * counting the submits
  * [BEGIN]
@@ -12,20 +15,19 @@ function setCounterToDom() {
 }
 
 function checkLocalStorage() {
-  let userName = localStorage.getItem("userName");
-  let userComment = localStorage.getItem("userComment");
-  let userPhoto = localStorage.getItem("userPhoto");
-
-  if (!userName || !userComment || !userPhoto) {
-    localStorage.clear();
-    return;
+  const savedData = JSON.parse(localStorage.getItem("savedData")) || [];
+  if (savedData.length > 0) {
+    savedData.forEach((data) => {
+      displayNotifications(true, {
+        userName: data.username,
+        userComment: data.comment,
+        userPhoto: data.profilePicSrc,
+        userId: data.id,
+        time: data.time,
+        read: data.read,
+      });
+    });
   }
-
-  displayNotifications(true, {
-    userName: userName,
-    userComment: userComment,
-    userPhoto: userPhoto,
-  });
 }
 
 checkLocalStorage();
@@ -42,16 +44,18 @@ setCounterToDom();
  */
 
 function displayNotifications(fromLocalStorage = false, options = undefined) {
-  let nameInputValue, commentInputValue, profilePictureInput;
+  let nameInputValue, commentInputValue, profilePictureInput, markAsRead;
 
   if (fromLocalStorage === true) {
     nameInputValue = options.userName;
     commentInputValue = options.userComment;
     profilePictureInput = options.userPhoto;
+    markAsRead = options.read;
   } else {
     nameInputValue = document.getElementsByClassName("username")[0].value;
     commentInputValue = document.getElementsByClassName("comment")[0].value;
     profilePictureInput = document.getElementById("profile");
+    markAsRead = false;
   }
 
   //set the inputs by class
@@ -79,6 +83,8 @@ function displayNotifications(fromLocalStorage = false, options = undefined) {
   const userName = document.createElement("span");
   const dot = document.createElement("span");
   const time = document.createElement("p");
+  userNotif.style.backgroundColor = markAsRead ? BG_AFTER_READING : BG_INITIAL;
+
   /*
    * Creating a user-profile
    * [END]
@@ -110,23 +116,35 @@ function displayNotifications(fromLocalStorage = false, options = undefined) {
   text.append(userName);
   text.append(document.createTextNode(` ${commentInputValue}`));
   text.append(dot);
-  time.textContent = "1m ago";
+
+  let timeToRender = "0m ago";
+  if (options?.time) {
+    const newTime = new Date().getTime();
+    let currentTime = Math.trunc((newTime - options.time) / 1000 / 60);
+    timeToRender = `${currentTime}m ago`;
+  }
+  time.textContent = timeToRender;
 
   nameNotificationsDate.append(text);
   nameNotificationsDate.append(time);
-
-  uploadProfilePic(profilePictureInput, profilePicImg, fromLocalStorage);
+  const idForElement = options?.userId || generateGUID();
+  uploadProfilePic(
+    profilePictureInput,
+    profilePicImg,
+    fromLocalStorage,
+    nameInputValue,
+    commentInputValue,
+    idForElement
+  );
 
   userNotif.append(profilePicImg);
   userNotif.append(nameNotificationsDate);
-  userNotif.append(createSVG(userNotif));
+  userNotif.append(createSVG(userNotif, idForElement));
 
   notificationsWrapper.append(userNotif);
 
   count++;
   setCounterToDom();
-
-  saveToLocalStorage(nameInputValue, commentInputValue);
   clearInputFields();
 
   /*
@@ -138,7 +156,10 @@ function displayNotifications(fromLocalStorage = false, options = undefined) {
 function uploadProfilePic(
   profilePictureInput,
   profilePicImg,
-  fromLocalStorage
+  fromLocalStorage,
+  nameInputValue,
+  commentInputValue,
+  id
 ) {
   if (fromLocalStorage) {
     profilePicImg.src = profilePictureInput;
@@ -150,7 +171,12 @@ function uploadProfilePic(
     reader.onload = function (e) {
       profilePicImg.src = e.target.result;
 
-      localStorage.setItem("userPhoto", profilePicImg.src);
+      saveToLocalStorage(
+        nameInputValue,
+        commentInputValue,
+        profilePicImg.src,
+        id
+      );
     };
     reader.readAsDataURL(selectedFile);
   }
@@ -168,7 +194,7 @@ function clearInputFields() {
   }
 }
 
-function createSVG(userNotif) {
+function createSVG(userNotif, id) {
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   svg.setAttribute("height", "35px");
   svg.setAttribute("width", "35px");
@@ -177,9 +203,11 @@ function createSVG(userNotif) {
 
   svg.addEventListener("click", function () {
     if (userNotif) {
-      userNotif.remove(userNotif);
+      userNotif.remove();
       count--;
       setCounterToDom();
+
+      deleteItemFromLocalStorageById(id);
     }
   });
 
@@ -195,7 +223,71 @@ function createSVG(userNotif) {
   return svg;
 }
 
-function saveToLocalStorage(username, comment) {
-  localStorage.setItem("userName", username);
-  localStorage.setItem("userComment", comment);
+function deleteItemFromLocalStorageById(id) {
+  let savedData = JSON.parse(localStorage.getItem("savedData")) || [];
+  for (let i = 0; i < savedData.length; i++) {
+    if (savedData[i].id === id) {
+      savedData.splice(i, 1);
+      break;
+    }
+  }
+  localStorage.setItem("savedData", JSON.stringify(savedData));
+}
+
+function saveToLocalStorage(username, comment, profilePicSrc, id, read) {
+  let savedData = JSON.parse(localStorage.getItem("savedData")) || [];
+  let time = new Date().getTime();
+
+  const data = {
+    id,
+    username,
+    comment,
+    profilePicSrc,
+    time,
+    read,
+  };
+  savedData.push(data);
+
+  localStorage.setItem("savedData", JSON.stringify(savedData));
+}
+
+function generateGUID() {
+  // Use the crypto object if available
+  const data = new Uint8Array(16);
+  crypto.getRandomValues(data);
+
+  // Set the version (4) and reserved bits (2)
+  data[6] = (data[6] & 0x0f) | 0x40;
+  data[8] = (data[8] & 0x3f) | 0x80;
+
+  // Convert the data to a hexadecimal string
+  let guid = "";
+  for (let i = 0; i < data.length; i++) {
+    const hex = data[i].toString(16).padStart(2, "0");
+    guid += hex;
+    if (i === 3 || i === 5 || i === 7 || i === 9) {
+      guid += "-";
+    }
+  }
+
+  return guid;
+}
+
+function markAllAsRead() {
+  const getAllNotifications = document.getElementsByClassName("user-notif");
+  if (getAllNotifications && getAllNotifications.length) {
+    Array.from(getAllNotifications).forEach((notifElement) => {
+      notifElement.style.backgroundColor = BG_AFTER_READING;
+    });
+  }
+
+  markAsRead = false;
+  updateLocalStorageToMarkAllAsRead();
+}
+function updateLocalStorageToMarkAllAsRead() {
+  let savedData = JSON.parse(localStorage.getItem("savedData")) || [];
+  for (let i = 0; i < savedData.length; i++) {
+    savedData[i].read = true;
+  }
+  localStorage.setItem("savedData", JSON.stringify(savedData));
 }
